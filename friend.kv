@@ -1,0 +1,475 @@
+WindowManger:
+    Start_screen:
+    Login_screen:
+    Forgot_pass:
+    Register:
+    Menu_screen:
+    File_handle:
+    Personal_Diary:
+    Youtube_handle:
+    Facebook_handle:
+    Personal_Diary:
+    Joke:
+    Top_ten_news:
+    Movies:
+<Start_screen>:
+    name:"start"
+    canvas:
+        Rectangle:
+            size:self.size
+            pos:self.pos
+            source:'images.jpg'
+    FloatLayout:
+        Button:
+            text:'Log In'
+            size_hint:.9,.05
+            pos_hint:{'x':0.05,'y':.44}
+            background_color:(0, 255,153,60)
+            on_press:
+                root.manager.current = "login_screen"
+                root.manager.transition.direction = "left"
+        Button:
+            text:'Register'
+            size_hint:.9,.05
+            pos_hint:{'x':0.05,'y':.34}
+            background_color:(0, 255,153,60)
+            on_release:
+                root.manager.current="register"
+                root.manager.transition.direction="left"
+
+
+<Login_screen>:
+    name:"login_screen"
+    psw:psw
+    canvas:
+        Rectangle:
+            size:self.size
+            pos:self.pos
+            source:'images.jpg'
+    FloatLayout:
+        TextInput:
+            id:psw
+            hint_text:'Passcode'
+            password:True
+            multiline:False
+            size_hint:.9,.05
+            pos_hint:{'x':0.05,'y':.5}
+            background_color:(255, 255,255,60)
+        Button:
+            text:'Validate'
+            size_hint:.9,.05
+            pos_hint:{'x':0.05,'y':.44}
+            background_color:(0, 255,153,60)
+            on_release:
+                root.manager.current = "Menu" if root.valid() == 1 else "login_screen"
+                root.manager.transition.direction = "left"
+        Button:
+            text:'Forgot?'
+            size_hint:.4,.08
+            pos_hint:{'x':0.05,'y':.34}
+            background_color:(0, 255,153,60)
+            on_release:
+                root.manager.current = "forget"
+                root.manager.transition.direction = "left"
+<Forgot_pass>:
+    canvas:
+        Rectangle:
+            size:self.size
+            pos:self.pos
+            source:'images.jpg'
+    name:"forget"
+    FloatLayout:
+        TextInput:
+            hint_text:'Passcode'
+            password:True
+            multiline:False
+            size_hint:.9,.05
+            pos_hint:{'x':0.05,'y':.5}
+            background_color:(255, 255,255,60)
+        Button:
+            text:'Validate'
+            size_hint:.9,.05
+            pos_hint:{'x':0.05,'y':.44}
+            background_color:(0, 255,153,60)
+        Button:
+            text:'Back'
+            size_hint:.9,.05
+            pos_hint:{'x':0.05,'y':.38}
+            background_color:(0, 255,153,60)
+            on_release:
+                root.manager.current='start'
+                root.manager.transition.direction='right'
+<Register>:
+    name:"register"
+    user_name:user_name
+    user_id:user_id
+    user_pass:user_pass
+    canvas:
+        Rectangle:
+            size:self.size
+            pos:self.pos
+            source:'images.jpg'
+    FloatLayout:
+        TextInput:
+            id:user_name
+            hint_text:'Name'
+            multiline:False
+            size_hint:.9,.05
+            pos_hint:{'x':0.05,'y':.5}
+            background_color:(255, 255,255,60)
+        TextInput:
+            id:user_id
+            hint_text:'Email'
+            multiline:False
+            size_hint:.9,.05
+            pos_hint:{'x':0.05,'y':.44}
+            background_color:(255, 255,255,60)
+        TextInput:
+            id:user_pass
+            hint_text:'Passcode'
+            password:True
+            multiline:False
+            size_hint:.9,.05
+            pos_hint:{'x':0.05,'y':.38}
+            background_color:(255, 255,255,60)
+        Button:
+            text:'Submit'
+            size_hint:.9,.05
+            pos_hint:{'x':0.05,'y':.32}
+            background_color:(0, 255,153,60)
+            on_release:
+                root.manager.transition.direction="right"
+                root.submit()
+        Button:
+            text:'Back'
+            size_hint:.9,.05
+            pos_hint:{'x':0.05,'y':.26}
+            background_color:(0, 255,153,60)
+            on_release:
+                root.manager.current='start'
+                root.manager.transition.direction='right'
+<Menu_screen>:
+    #:import rgba kivy.utils.get_color_from_hex
+    name:"Menu"
+    canvas:
+        Rectangle:
+            size:self.size
+            pos:self.pos
+            source:'images.jpg'
+    GridLayout:
+        cols:2
+        Button:
+            text:'Ask me'
+            background_color:rgba('#55ff00')
+            on_release:
+                root.manager.current=root.Ask_me()
+                root.manager.transition.direction='right'
+        Button:
+            text:'Paytm_data'
+            background_color:rgba('#55ff00')
+            on_release:
+                root.manager.current='file'
+                root.manager.transition.direction='left'
+        Button:
+            text:'facebook_data'
+            background_color:rgba('#66ccff')
+            on_release:
+                root.manager.current='face'
+                root.manager.transition.direction='right'
+        Button:
+            text:'youtube data'
+            background_color:rgba('#55ff00')
+            on_release:
+                root.manager.current='youtube'
+                root.manager.transition.direction='right'
+        Button:
+            text:'Stock Price'
+            background_color:rgba('#009933')
+            on_release:
+                root.manager.current=root.stock_market()
+                root.manager.transition.direction='right'
+        Button:
+            text:'Top News'
+            background_color:rgba('#9999ff')
+            on_release:
+                root.manager.current='news'
+                root.manager.transition.direction='right'
+        Button:
+            text:'Write/Record Personal Diary'
+            background_color:rgba('#00ff99')
+            on_release:
+                root.manager.current='write'
+                root.manager.transition.direction='right'
+        Button:
+            text:'Read/Listen Diary'
+            background_color:rgba('#0066cc')
+            on_release:
+                root.manager.current='start'
+                root.manager.transition.direction='right'
+        Button:
+            text:'Top Movies'
+            background_color:rgba('#00cc99')
+            on_release:
+                root.manager.current='movie'
+                root.manager.transition.direction='right'
+        Button:
+            text:'Play Music'
+            background_color:rgba('#66ff33')
+            on_release:
+                root.manager.current=root.play_music()
+                root.manager.transition.direction='right'
+        Button:
+            text:'Jokes'
+            background_color:rgba('#ff0000')
+            on_release:
+                root.manager.current='joke'
+                root.manager.transition.direction='right'
+        Button:
+            text:'Talk to Me'
+            background_color:rgba('#ff6666')
+            on_release:
+                root.manager.current='start'
+                root.manager.transition.direction='right'
+        Button:
+            text:'send_mail'
+            background_color:rgba('#00ffff')
+            on_release:
+                root.manager.current='start'
+                root.manager.transition.direction='right'
+        Button:
+            text:'others'
+            background_color:rgba('#00ffff')
+            on_release:
+                root.manager.current='start'
+                root.manager.transition.direction='right'
+
+<File_handle>:
+    name:"file"
+    canvas:
+        Rectangle:
+            size:self.size
+            pos:self.pos
+            source:'color_paper.jpg'
+    FloatLayout:
+        Button:
+            text:'Load'
+            size_hint:.9,.05
+            pos_hint:{'x':0.05,'y':.5}
+            background_color:(0, 255,153,60)
+            on_release:
+                root.show_load()
+        Button:
+            text:'Show Result'
+            size_hint:.9,.05
+            pos_hint:{'x':0.05,'y':.44}
+            background_color:(0, 255,153,60)
+            on_release:
+                root.manager.current = "show_result"
+                root.manager.transition.direction = "left"
+        Button:
+            text:'Back'
+            size_hint:.9,.05
+            pos_hint:{'x':0.05,'y':.44}
+            background_color:(0, 255,153,60)
+            on_release:
+                root.manager.current = "Menu"
+                root.manager.transition.direction = "left"
+<LoadDialog>:
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: "vertical"
+        FileChooserListView:
+            id: filechooser
+
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
+                text: "Cancel"
+                on_release: root.cancel()
+
+            Button:
+                text: "Load"
+                on_release: root.load(filechooser.path, filechooser.selection)
+
+<Youtube_handle>:
+    name:"youtube"
+    canvas:
+        Rectangle:
+            size:self.size
+            pos:self.pos
+            source:'color_paper.jpg'
+    FloatLayout:
+        Button:
+            text:'Load'
+            size_hint:.9,.05
+            pos_hint:{'x':0.05,'y':.5}
+            background_color:(0, 255,153,60)
+            on_release:
+                root.show_load()
+        Button:
+            text:'Show Result'
+            size_hint:.9,.05
+            pos_hint:{'x':0.05,'y':.44}
+            background_color:(0, 255,153,60)
+            on_release:
+                root.manager.current = "show_result"
+                root.manager.transition.direction = "left"
+        Button:
+            text:'Back'
+            size_hint:.9,.05
+            pos_hint:{'x':0.05,'y':.44}
+            background_color:(0, 255,153,60)
+            on_release:
+                root.manager.current = "Menu"
+                root.manager.transition.direction = "left"
+<Facebook_handle>:
+    name:"face"
+    canvas:
+        Rectangle:
+            size:self.size
+            pos:self.pos
+            source:'color_paper.jpg'
+    FloatLayout:
+        Button:
+            text:'Load'
+            size_hint:.9,.05
+            pos_hint:{'x':0.05,'y':.5}
+            background_color:(0, 255,153,60)
+            on_release:
+                root.show_load()
+        Button:
+            text:'Show Result'
+            size_hint:.9,.05
+            pos_hint:{'x':0.05,'y':.44}
+            background_color:(0, 255,153,60)
+            on_release:
+                root.manager.current = "show_result"
+                root.manager.transition.direction = "left"
+        Button:
+            text:'Back'
+            size_hint:.9,.05
+            pos_hint:{'x':0.05,'y':.44}
+            background_color:(0, 255,153,60)
+            on_release:
+                root.manager.current = "Menu"
+                root.manager.transition.direction = "left"
+<Personal_Diary>:
+    name:'write'
+    text_input: text_input
+
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
+                text: 'Load'
+                on_release: root.show_load()
+            Button:
+                text: 'Save'
+                on_release: root.show_save()
+
+        BoxLayout:
+            TextInput:
+                id: text_input
+                text: ''
+
+            RstDocument:
+                text: text_input.text
+                show_errors: True
+    BoxLayout:
+        orientation:"vertical"
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
+                text:'Back'
+                on_press:
+                    root.manager.current='Menu'
+                    root.manager.transition.direction='right'
+
+<SaveDialog>:
+    text_input: text_input
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: "vertical"
+        FileChooserListView:
+            id: filechooser
+            on_selection: text_input.text = self.selection and self.selection[0] or ''
+
+        TextInput:
+            id: text_input
+            size_hint_y: None
+            height: 30
+            multiline: False
+
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
+                text: "Cancel"
+                on_release: root.cancel()
+
+            Button:
+                text: "Save"
+                on_release: root.save(filechooser.path, text_input.text)
+<Joke>:
+    name:'joke'
+    text:text
+    BoxLayout:
+
+        RstDocument:
+            id:text
+            text: root.write_joke()
+            show_errors: True
+    BoxLayout:
+        orientation:"vertical"
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
+                text:'Back'
+                on_press:
+                    root.manager.current='Menu'
+                    root.manager.transition.direction='right'
+<Top_ten_news>:
+    name:'news'
+    text:text
+    BoxLayout:
+
+        RstDocument:
+            id:text
+            text: root.news()
+            show_errors: True
+    BoxLayout:
+        orientation:"vertical"
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
+                text:'Back'
+                on_press:
+                    root.manager.current='Menu'
+                    root.manager.transition.direction='right'
+<Movies>:
+    name:'movie'
+    text:text
+    BoxLayout:
+
+        RstDocument:
+            id:text
+            text: root.imdb_top()
+            show_errors: True
+    BoxLayout:
+        orientation:"vertical"
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
+                text:'Back'
+                on_press:
+                    root.manager.current='Menu'
+                    root.manager.transition.direction='right'
